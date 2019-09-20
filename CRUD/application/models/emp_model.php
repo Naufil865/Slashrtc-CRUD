@@ -51,11 +51,11 @@ class emp_model extends CI_Model {
     //$id = $this->input->post('id');
     //$result  = $this->db->update("empdb.tb2",$data);
     
-    echo $id;
+    //echo $id;
     $this->db->where('id',$id);
     $this->db->update("empdb.tb2",$data);
-    echo $this->db->last_query();
-    die();
+    //echo $this->db->last_query();
+    //die();
 
   }
 

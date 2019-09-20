@@ -266,7 +266,7 @@
             async : true,
             dataType : 'json',
             success : function(data){
-              console.log(data)
+              //console.log(data);
               var html = '';
                   var i;
                   for(i=0; i<data.length; i++){
@@ -337,59 +337,66 @@
               $("#modaladd").modal('hide');
                
             }
+          });
         });
-      });
       // get data on model
        $('body').on('click','.item_edit',function(){
           var id = $(this).data('id');
-          console.log(id);
+          //console.log(id);
           $.ajax({
               type : "POST",
               url  : "<?php echo site_url('Employee/edit2')?>",
               dataType : "JSON",
               data : {id:id },
               success: function(data){
-                console.log(data);
+                //console.log(data);
                   $('#editmodal').modal('show');
                   $('[name = "edit_empid"]').val(data.id);
                   $('[name = "edit_name"]').val(data.name);
                   $('[name = "edit_phonenumber"]').val(data.phonenumber);
-                  $('[name = "editgender"]').val(data.gender);
+                  //$('[name = "editgender"]').val(data.gender);                               
+                  //console.log(data.gender);         
+                  if( data.gender == "Male" ) 
+                  {
+                    $('[name = "editgender1"]').prop("checked",true);
+                    $('[name = "editgender2"]').prop("checked",false);
+                  } 
+                  else
+                  {
+                    $('[name = "editgender1"]').prop("checked",false);
+                    $('[name = "editgender2"]').prop("checked",true);
+                  }
 
-                  //if($('[class = "edithobbies"]').val(data.hobbies))
-                  //{
-                  //  $('[name = "edit_hobbies"]').prop("checked",true).val(data.hobbies);
-                  //}
-                  //else if($('[class = "edithobbies"]').val(data.hobbies))
-                  //{
-                  //  $('[name = "edit_hobbies2"]').prop("checked",true).val(data.hobbies);
-                  //}
-                  //else
-                  //{
-                  //  $('[name = "edit_hobbies3"]').prop("checked",true).val(data.hobbies);
-                  //}
+                  console.log(data.hobbies);
+
+                  if(data.hobbies == "FootBall")
+                  {
+                    $('[name = "edithobbies"]').prop("checked",true);
+                  }
+                  else{
+                    $('[name = "edithobbies"]').prop("checked",false);
+                  }
+                  if(data.hobbies == "Cricket")
+                  {
+                    $('[name = "edithobbies2"]').prop("checked",true);
+                  }
+                  else
+                  {
+                    $('[name = "edithobbies2"]').prop("checked",false);
+                  }
+                  if(data.hobbies == "Dance")
+                  {
+                    $('[name = "edithobbies3"]').prop("checked",true);
+                  }
+                  else
+                  {
+                    $('[name = "edithobbies3"]').prop("checked",false);
+                  }
 
 
-                  $('[name = "edit_hobbies"]').val(data.hobbies);
-                 
-                    /*  if($(['name = "gender"']).val(data.gender).attr("value")=="Male") {
-                          $("gender").prop("checked", true); 
-                      }
-                      else if($(['name = "gender2"']).val(data.gender).attr("value")=="Female") {
-                          $("gender2").prop("checked", true);
-                      }
-                  */
-                  //if($('[class = "editgender"]').val(data.gender))
-                  //{
-                  //  $('[name = "edit_gender"]').prop("checked", true).val(data.gender); 
-                  //}else{
-                  //  $('[name = "edit_gender2"]').prop("checked", true).val(data.gender);
-                  //}
-                  //$('[class = "editgender"]').prop("checked", true).val(data.gender); 
-                  
-                  //$('[name = "#gender"]').prop("checked",true).val(data.gender);
                   $('[name = "edit_department"]').val(data.department);
                   $('[name = "edit_address"]').val(data.address);
+
             }
           });  
         });
@@ -397,7 +404,7 @@
 
       //UPDATE DATA
       $('#btnupdate').on('click',function(){
-          console.log("btn update click");
+          //console.log("btn update click");
           
           var id = $('#edit_empid').val();
           var name = $('#edit_name').val();
@@ -407,30 +414,31 @@
   
           var hobbies = [];
           $.each($(".edithobbies:checked"),function(){
-            hobbies.push($(this).val());
+              hobbies.push($(this).val());
           });
 
           var address = $('#edit_address').val();
         
-          $.ajax({
+          $.ajax
+          ({
             type : "POST",
             url  : "<?php echo site_url('/Employee/update2');?>",
             dataType : "JSON",
             data : {id:id,name:name,phonenumber:phonenumber,department:department,gender:gender ,hobbies:hobbies,address:address },
-            success : function(data){
-               
-              console.log(data);
+            success : function(data)
+            {
+              
               $('[name = "edit_name"]').val("");
               $('[name = "edit_phonenumber"]').val("");
               $('[name = "edit_department"]').val("");
               $('[name = "edit_address"]').val("");
-              
+              $("#editmodal").modal('hide');
               show_data();
-
+              //$("#editmodal").hide();
                
             }
-        });
-      });
+          });
+       });
 
 
     </script>  

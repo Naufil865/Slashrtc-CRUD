@@ -184,11 +184,11 @@
         'address' => $this->input->post('address'), 
       );
       $id = $this->input->post('id');
-      echo "id".$id;
+      //echo "id".$id;
       $this->load->model('emp_model');
-      $data =  $this->emp_model->updaterecords($data,$id);
+      $result =  $this->emp_model->updaterecords($data,$id);
     
-      echo json_encode($data);
+      echo json_encode($result);
     }   
  }
 ?>
